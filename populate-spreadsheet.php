@@ -34,24 +34,25 @@ if ($input === FALSE) {
   exit;
 }
 
-$usernames = [];
+$user_names = [];
 
 $output = fopen('php://output', 'w');
 
 $headers = fgetcsv($input);
 while ($row = fgetcsv($input)) {
   $input_data = array_combine($headers, $row);
-  $username = $input_data['Primary contact Drupal.org username'];
+  $user_name = preg_replace('|https?://(www\.)?drupal\.org/u/|', '', $input_data['Primary contact Drupal.org username']);
 
-  if (isset($usernames[$username])) {
+  if (isset($user_names[$user_name])) {
     continue;
   }
-  $usernames[$username] = $username;
+  $user_names[$user_name] = $user_name;
+  $url_user_name = mb_strtolower(str_replace(' ', '-', $user_name));
 
   $output_data = [
-    'username' => '=HYPERLINK("https://www.drupal.org/u/' . $username . '";"' . $username . '")',
+    'username' => '=HYPERLINK("https://www.drupal.org/u/' . $url_user_name . '";"' . $user_name . '")',
     'Status' => 'n/a',
-    'issues' => '=HYPERLINK("https://www.drupal.org/project/issues/search/drupal?issue_tags_op=%3D&issue_tags=' . $tag . '&submitted=' . $username . '";"issues")',
+    'issues' => '=HYPERLINK("https://www.drupal.org/project/issues/search/drupal?issue_tags_op=%3D&issue_tags=' . $tag . '&submitted=' . $user_name . '";"issues")',
     'notes' => '',
   ];
 
