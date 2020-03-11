@@ -1,7 +1,7 @@
 # Drupal 8 Beta Testing Tools
 Supporting tools for the Drupal 8 Beta Testing program.
 
-## Populate the tracking spreadheet
+## Populate the tracking spreadsheet
 The `populate-spreadsheet.php` script can be used to populate the Drupal beta
 testing tracking spreadsheet:
 * Export the live submissions spreadsheet as CSV, e.g. `~/Desktop/beta_testers.csv`
